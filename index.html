@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+
+    <form id="form">
+        <center><h2>will generate onchange input value </h2></center>
+        <center><h4>sorry for running time and pleas check code . Note cracker unfortunately give just first char </h4></center>
+        <center><h5>junior position</h5></center>
+      <input
+        onchange="checkPass()"
+        id="pass"
+        name="password"
+        type="password"
+        placeholder="password"
+      />
+    </form>
+
+    <script>
+         var userPass = '';
+       function checkPass(){
+         userPass = document.getElementById('pass').value;
+         testerGenerator()
+
+       }
+
+
+
+      function testerGenerator(){
+           var passwordDigitNumber = userPass.length-1
+           var isUserPassJustNumber = !isNaN(userPass)
+           var passwordRange = Math.pow(10,passwordDigitNumber)
+
+        if(isUserPassJustNumber)
+           {  for (var index = 0; index < passwordRange.length; index++) {
+             crack((index.toString()).split('') ,passwordDigitNumber)
+        }
+       }else{
+            crack(userPass.split(''),userPass.length)
+        }
+    }
+
+    function crack(arr,len){
+        for (var i = 1; i <= len; i++) 
+        { 
+            generate(arr,i,"",len); //arr, i, "", len       
+       }
+    }
+       function generate(arr,i,s,len){
+        
+        if (i == 0) // when len has been reached 
+        { 
+         
+            console.log(`the password is : ${s} `)
+          
+        }
+        for (var j = 0; j < len; j++) 
+        { 
+            var appended = s + arr[j]; 
+            var obj = {arr : arr,i:i-1,appended:appended , len:len}
+            generate(arr, i - 1, appended, len); 
+        } 
+       }
+    </script>
+  </body>
+</html>
